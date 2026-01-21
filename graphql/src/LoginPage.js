@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import './styles/login.css';
+import JWTService, { getJWT } from './queries/Auth'
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Login attempt:', { username, password });
-  };
+
+  async function  handleSubmit(e){
+     e.preventDefault();
+     const data =  await getJWT(username, password)
+
+     console.log("This is the data in the login page: ", data)
+  }
 
   return (
     <div className="container">
