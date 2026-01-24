@@ -13,19 +13,13 @@ function App() {
   return (
     <> 
     {/* <Login /> */}
-   
         <Routes>
         <Route path="/Login" element={ token ? <Navigate to ="/" replace/> : <Login setToken={setToken} />} />
-        <Route path= "/Home" element = { token ? <Home /> : <Navigate to="/Login" replace /> }/>
+        <Route path= "/Home" element = { token ? <Home token={token} /> : <Navigate to="/Login" replace /> }/>
         <Route path= "/" element =  { token ? <Home /> : <Navigate to="/Login" replace /> }/>
-        <Route path= "*" element= { <Error />}/>
+        <Route path= "*" element= { <Error />}/> {/* wild card for all possible paths including nested paths*/}
        </Routes>
-   </>
-
-   
-      
-
-   
+   </>   
   );
 }
 

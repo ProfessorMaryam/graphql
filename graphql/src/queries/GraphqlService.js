@@ -1,5 +1,5 @@
 export async function fetchGraphQL(query, token){
-    const res = await fetch (    "https://learn.reboot01.com/api/graphql-engine/v1/graphql",
+    const res = await fetch ("https://learn.reboot01.com/api/graphql-engine/v1/graphql",
 {
     method : "POST",
     headers: {
