@@ -1,4 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom";
+import '../styles/error.css'
 
 export default function ErrorView({errorCode, ErrorMessage}){
 
@@ -14,11 +15,14 @@ export default function ErrorView({errorCode, ErrorMessage}){
 
 
     return(
-         <div style={{ padding: "40px" }}>
-      <h1>{code}</h1>
-      <p>{message}</p>
-
-      <button onClick={() => navigate("/")}>Go Home</button>
+       <div className="container">
+      <div className="error-card">
+        <h1 className="error-code">{code}</h1>
+        <p className="error-message">{message}</p>
+        <button className="submit-btn error-btn" onClick={() => navigate("/")}>
+          Go Home
+        </button>
+      </div>
     </div>
     )
 }
