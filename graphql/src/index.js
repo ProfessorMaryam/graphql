@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
-import App from './App';
+import App from './views/App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter> {/*Wrap the entire root component so all child components get access to routing*/}
+      <App />
+    </BrowserRouter>
+    
   </React.StrictMode>
 );
 

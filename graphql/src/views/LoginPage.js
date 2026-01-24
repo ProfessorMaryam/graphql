@@ -1,16 +1,26 @@
 import { useState } from 'react';
-import './styles/login.css';
-import JWTService, { getJWT } from './queries/Auth'
+import '../styles/login.css';
+import { getJWT } from '../queries/Auth'
+import {useNavigate } from 'react-router-dom';
 
-export default function LoginForm() {
+export default function LoginView({setToken}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+    const navigate = useNavigate();
 
 
   async function  handleSubmit(e){
      e.preventDefault();
      const data =  await getJWT(username, password)
+
+     localStorage.setItem("JWT", data)
+
+           setToken(data);
+
+
+    navigate("/", { replace: true }); 
 
      console.log("This is the data in the login page: ", data)
   }
