@@ -16,7 +16,11 @@ export async function getJWT(username, password){
 
   const data = await res.json();
 
-  console.log("This is the data from the getJWT function ",  data) // just to see the format
+  //console.log("This is the data from the getJWT function ",  data) // just to see the format
 
   return data
+}
+
+export async function deleteJWT(){
+  localStorage.removeItem("JWT");
 }
