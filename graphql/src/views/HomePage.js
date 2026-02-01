@@ -1,9 +1,12 @@
 import { fetchGraphQL } from "../queries/GraphqlService";
 import { useEffect, useState } from "react";
 import { deleteJWT } from "../queries/Auth";
+import { Navigate, useNavigate } from "react-router-dom";
 import "../styles/home.css";
 
 export default function HomeView({setToken}) {
+
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const [xpInfo, setXpInfo] = useState(null);
 
@@ -81,6 +84,8 @@ setXpInfo(data.data.transaction);
   try {
     await deleteJWT();
     setToken(null);
+    navigate("/", { replace: true });
+
   } catch (e) {
     console.error("Error deleting the JWT: ", e);
   }
