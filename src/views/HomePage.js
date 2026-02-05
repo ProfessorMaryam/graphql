@@ -1,7 +1,7 @@
 import { fetchGraphQL } from "../queries/GraphqlService";
 import { useEffect, useState } from "react";
 import { deleteJWT } from "../queries/Auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Calendar,
   LogOut,
@@ -9,7 +9,7 @@ import {
   Activity,
   Users,
   CheckCircle,
-  Info
+  
 } from "lucide-react";
 
 
@@ -154,7 +154,6 @@ query {
   const joinedDate = new Date(userInfo.createdAt).toLocaleDateString();
   const level = userInfo.events?.[0]?.level ?? 0;
   const totalXP = xpInfo ? xpInfo.reduce((sum, tx) => sum + tx.amount, 0) : 0;
-  const levelProgress = ((level % 1) * 100).toFixed(0);
 
 
 
