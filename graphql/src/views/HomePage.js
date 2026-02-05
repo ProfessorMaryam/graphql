@@ -61,6 +61,9 @@ export default function HomeView({ setToken }) {
       }
     }
 
+
+    // this is for each project and the XP you gain from it
+
     async function getXpData() {
       try {
         const query = `
@@ -71,11 +74,11 @@ query {
       _and: [
         { path: { _like: "%/bh-module/%" } }
         { path: { _nlike: "%/piscine-js/%" } }
+        { path: { _nlike: "%/piscine-rust/%" } }
+
       ]
       
-       object: {
-         type: { _eq: "project" }
-       }
+      
     }
     order_by: { createdAt: desc }
   ) {
@@ -152,6 +155,7 @@ query {
   const level = userInfo.events?.[0]?.level ?? 0;
   const totalXP = xpInfo ? xpInfo.reduce((sum, tx) => sum + tx.amount, 0) : 0;
   const levelProgress = ((level % 1) * 100).toFixed(0);
+
 
 
   // preparing for the skills 
@@ -430,60 +434,104 @@ const points = xpChartData.map((d, i) => {
     <h2 className="card-title">Skills Overview</h2>
   </div>
 
-  <svg width={radarSize} height={radarSize} className="radar-chart">
+  <div className="skills-content">
+    <div className="radar-container">
+      <svg width={radarSize} height={radarSize} className="radar-chart">
 
-    {[0.25, 0.5, 0.75, 1].map((v, i) => (
-      <circle
-        key={i}
-        cx={radarCenter}
-        cy={radarCenter}
-        r={radarRadius * v}
-        fill="none"
-        stroke="currentColor"
-        opacity="0.08"
-      />
-    ))}
+        {[0.2, 0.4, 0.6, 0.8, 1].map((v, i) => (
+          <circle
+            key={i}
+            cx={radarCenter}
+            cy={radarCenter}
+            r={radarRadius * v}
+            fill="none"
+            stroke="currentColor"
+            opacity="0.1"
+            strokeWidth="1"
+          />
+        ))}
 
-    {radarPoints.map((p, i) => (
-      <line
-        key={i}
-        x1={radarCenter}
-        y1={radarCenter}
-        x2={p.lx}
-        y2={p.ly}
-        stroke="currentColor"
-        opacity="0.15"
-      />
-    ))}
+        {radarPoints.map((p, i) => (
+          <line
+            key={i}
+            x1={radarCenter}
+            y1={radarCenter}
+            x2={p.lx}
+            y2={p.ly}
+            stroke="currentColor"
+            opacity="0.2"
+            strokeWidth="1"
+          />
+        ))}
 
-    <polygon
-      points={radarPolygon}
-      fill="currentColor"
-      opacity="0.25"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
+        <polygon
+          points={radarPolygon}
+          fill="url(#radarGradient)"
+          opacity="0.4"
+          stroke="#22c55e"
+          strokeWidth="2.5"
+        />
 
-    {radarPoints.map((p, i) => (
-      <circle key={i} cx={p.x} cy={p.y} r="4" fill="currentColor" />
-    ))}
+        <defs>
+          <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#22c55e" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.6" />
+          </linearGradient>
+        </defs>
 
-    {radarPoints.map((p, i) => (
-      <text
-        key={i}
-        x={p.lx}
-        y={p.ly}
-        textAnchor="middle"
-        fontSize="10"
-        fill="currentColor"
-        opacity="0.7"
-      >
-        {p.name}
-      </text>
-    ))}
+        {radarPoints.map((p, i) => (
+          <circle 
+            key={i} 
+            cx={p.x} 
+            cy={p.y} 
+            r="5" 
+            fill="#22c55e"
+            stroke="#fff"
+            strokeWidth="2"
+          />
+        ))}
 
-  </svg>
+        {radarPoints.map((p, i) => (
+          <text
+            key={i}
+            x={p.lx}
+            y={p.ly}
+            textAnchor="middle"
+            fontSize="12"
+            fill="currentColor"
+            fontWeight="600"
+            opacity="0.8"
+          >
+            {p.name}
+          </text>
+        ))}
+
+      </svg>
+    </div>
+
+    <div className="skills-list">
+      {skills.map((skill, i) => {
+        const percentage = ((skill.value / maxSkill) * 100).toFixed(0);
+        return (
+          <div className="skill-item" key={i}>
+            <div className="skill-info">
+              <span className="skill-name">{skill.name}</span>
+              <span className="skill-value">{skill.value.toFixed(1)}</span>
+            </div>
+            <div className="skill-bar-container">
+              <div 
+                className="skill-bar" 
+                style={{ width: `${percentage}%` }}
+              ></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
 </div>
+
+
 
 
         {/* XP Transactions Section */}

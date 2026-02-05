@@ -420,6 +420,90 @@
   font-weight: 500;
 }
 
+/* Skills Content Layout */
+.skills-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 32px;
+  align-items: center;
+}
+
+.radar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radar-chart {
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(34, 197, 94, 0.15));
+}
+
+/* Skills List */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.skill-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #22c55e;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.skill-bar-container {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  position: relative;
+}
+
+/* .skill-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+} */
+
 /* Transactions List */
 .transactions-list {
   max-height: 500px;
@@ -594,6 +678,17 @@
 }
 
 /* Responsive Design */
+@media (max-width: 968px) {
+  .skills-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .radar-container {
+    padding: 20px 0;
+  }
+}
+
 @media (max-width: 768px) {
   .page {
     padding: 20px 16px;
@@ -637,6 +732,15 @@
   .amount-value {
     font-size: 14px;
   }
+
+  .skills-content {
+    padding: 24px;
+  }
+
+  .radar-chart {
+    width: 100%;
+    height: auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -657,5 +761,14 @@
   .logout-btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .skills-list {
+    gap: 16px;
+  }
+
+  .skill-name,
+  .skill-value {
+    font-size: 13px;
   }
 }
